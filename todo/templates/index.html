@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Forum</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='site.css') }}">
+
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <!-- vue aktualisiert Elemente automatisch -->
+  <script defer src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- jquery ermöglicht Eingaben und sowas -->
+  <script defer src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <!-- <script defer src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script> -->
+  <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  <script defer src="{{ url_for('static', filename='site.js') }}"></script>
+
+</head>
+
+<body>
+  <header class='container'>
+    <h1>Anonyme Anabolika</h1>
+  </header>
+
+  <div id='app'>
+    <form v-on:submit.prevent="addPost" class="container">
+      <h2>Add A new Post</h2>
+      <div class="row">
+        <div class="col">
+          <input v-model="newuser" class='form-control' required type="text" name="description" placeholder="Username" />
+          <input v-model="newtitle" class='form-control' required type="text" name="description" placeholder="Title" />
+          <input v-model="newcontent" class='form-control' required type="text" name="description" placeholder="Content" />
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+
+              <label class="input-group-text" for="inputGroupSelect02">Topic</label>
+            </div>
+            <select v-model="newtopic" class="custom-select" id="inputGroupSelect02" placeholder="Choose..." >
+            <option selected>Choose...</option>
+            <option value="Python">Python</option>
+            <option value="LaTeX">LaTeX</option>
+            <option value="C++">C++</option>
+            <option value="General">General</option>
+          </select>
+          </div>
+        </div>
+        <!-- <div class="dropdown">
+          <button class="btn btn-primary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Topic
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <button v-model="newtopic=Python" class="dropdown-item" href="#">Python</a>
+          <button v-on:click="toggleDone(todo.id)" class="dropdown-item">Not Done</button>
+            <a class="dropdown-item" href="#">LaTeX</a>
+            <a class="dropdown-item" href="#">C++</a>
+          </div>
+        </div> -->
+        <div class='col'>
+          <input type='submit' class="btn btn-primary" value='Add' />
+        </div>
+      </div>
+    </form>
+    <main>
+      <h2>Current Posts</h2>
+      <ul class='list-group'>
+        <post v-for="post in posts" v-bind:post="post" v-bind:key="post.id"></post>
+      </ul>
+
+
+    </main>
+  </div>
+</body>
+
+</html>

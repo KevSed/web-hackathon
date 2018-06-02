@@ -1,0 +1,21 @@
+body {
+        font-family: Fira Sans sans-serif;
+        background: #4B3333;
+        color: #ffffff;
+}
+
+h2 {
+        color: blue;
+}
+
+h1 {
+        color: #ff00ff;
+}
+
+ul {
+        color: #000000;
+}
+
+.todo {
+    padding-top: 5pt;
+}
