@@ -10,7 +10,6 @@ function errorMessage(msg) {
   return $('#orders-panel').before(div);
 }
 
-// var socket = io();
 
 Vue.component('comment-form', {
   delimiters: ['((', '))'],
@@ -84,7 +83,7 @@ Vue.component('post', {
                 (( post.title ))
               </div>
               <div class='col'>
-                (( post.username ))
+                (( post.user.username ))
               </div>
               <div class='col'>
                 (( post.date ))

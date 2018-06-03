@@ -1,11 +1,9 @@
 from flask import Flask, render_template, redirect, request, jsonify
 from .database import database, Post, Comment, User
 from playhouse.shortcuts import model_to_dict
-# from flask_socketio import SocketIO
 
 app = Flask(__name__)
 
-# socket = SocketIO(app)
 
 @app.before_first_request
 def init():
@@ -56,5 +54,4 @@ def toggle_solved(id):
     post.save()
     return jsonify(status='success')
 
-# socket.on('update', app.getToDos)
 # 9.30
