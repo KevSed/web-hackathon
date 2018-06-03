@@ -1,19 +1,26 @@
 body {
         font-family: Fira Sans sans-serif;
-        background: #4B3333;
+        background: #2e3847;
         color: #ffffff;
+        font-weight: bold;
 }
 
 h2 {
-        color: blue;
+        color: white;
+        text-decoration: underline;
 }
 
 h1 {
-        color: #ff00ff;
+        color: #64ba6a;
+        font-weight: bold;
 }
 
 ul {
         color: #000000;
+}
+
+list-group {
+        background: #2e3847;
 }
 
 .todo {

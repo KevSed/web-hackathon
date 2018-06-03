@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, request, jsonify
 from .database import database, Post, Comment, User
+from playhouse.shortcuts import model_to_dict
 # from flask_socketio import SocketIO
 
 app = Flask(__name__)
@@ -15,19 +16,23 @@ def index():
     return render_template('index.html')
 
 @app.route('/posts')
-def get_todos():
-    posts = list(
-        Post.select(
-            Post.title,
-            User.username,
-            Post.content,
-            Post.date,
-            Post.topic,
-        )
-        .join(User)
-        .dicts()
-    )
+def get_posts():
+    posts = [model_to_dict(p, backrefs=True) for p in Post.select()]
     return jsonify(status='success', posts=posts)
+
+# @app.route('/comments')
+# def get_comments():
+#     comments = list(
+#         Comment.select(
+#             User.username,
+#             Comment.content,
+#             Comment.date,
+#             Post.id
+#         )
+#         .join(User, Post)
+#         .dicts()
+#     )
+#     return jsonify(status='success', comments=comments)
 
 @app.route('/posts', methods=['POST'])
 def add_post():
@@ -42,6 +47,13 @@ def add_post():
 def add_comment():
     user, created = User.get_or_create(username=request.form['user'])
     Comment.create(user=user, content=request.form['content'], post=request.form['post'])
+    return jsonify(status='success')
+
+@app.route('/posts/<int:id>', methods=['PUT'])
+def toggle_solved(id):
+    post = Post.get(id=id)
+    post.solved = not post.solved
+    post.save()
     return jsonify(status='success')
 
 # socket.on('update', app.getToDos)

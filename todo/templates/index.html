@@ -22,12 +22,12 @@
 
 <body>
   <header class='container'>
-    <h1>Anonyme Anabolika</h1>
+    <h1>Phragen phresher Physiker</h1>
   </header>
 
   <div id='app'>
     <form v-on:submit.prevent="addPost" class="container">
-      <h2>Add A new Post</h2>
+      <h3>Add A new Post</h3>
       <div class="row">
         <div class="col">
           <input v-model="newuser" class='form-control' required type="text" name="description" placeholder="Username" />
@@ -60,7 +60,7 @@
           </div>
         </div> -->
         <div class='col'>
-          <input type='submit' class="btn btn-primary" value='Add' />
+          <input type='submit' class="btn btn-primary btn-lg" value='Add' />
         </div>
       </div>
     </form>
@@ -69,25 +69,25 @@
         <h2>Current Posts</h2>
       </header>
       <header class='container'>
-        <h3>Python</h3>
+        <h4>Python</h4>
       </header>
       <ul class='list-group'>
         <post v-for="post in posts" v-if='post.topic=="Python"' v-bind:post="post" v-bind:key="post.id"></post>
       </ul>
       <header class='container'>
-        <h3>C++</h3>
+        <h4>C++</h4>
       </header>
       <ul class='list-group'>
         <post v-for="post in posts" v-if='post.topic=="C++"' v-bind:post="post" v-bind:key="post.id"></post>
       </ul>
       <header class='container'>
-        <h3>LaTeX</h3>
+        <h4>LaTeX</h4>
       </header>
-      <ul class='list-group'>
+      <ul class='list-group' >
         <post v-for="post in posts" v-if='post.topic=="LaTeX"' v-bind:post="post" v-bind:key="post.id"></post>
       </ul>
       <header class='container'>
-        <h3>General</h3>
+        <h4>General</h4>
       </header>
       <ul class='list-group'>
         <post v-for="post in posts" v-if='post.topic=="General"' v-bind:post="post" v-bind:key="post.id"></post>
@@ -99,3 +99,56 @@
 </body>
 
 </html>
+
+
+
+
+
+<!-- <li class='list-group-item'>
+  <header class='container'>
+    <div class="row">
+
+      <div class="card" style="width: 80rem;">
+        <div class="card-header">
+          <div class='row'>
+            <div class='col'>
+              (( post.title ))
+            </div>
+            <div class='col'>
+              (( post.username ))
+            </div>
+            <div class='col'>
+              (( post.date ))
+            </div>
+
+            <div class="col">
+              <button v-on:click="showComments = !showComments" class="btn btn-primary btn-lg">View</button>
+            </div>
+
+            <div class="col">
+              <button v-if="post.solved" v-on:click="toggleSolved(post.id)" class="btn btn-success">Solved</button>
+              <button v-else v-on:click="toggleSolved(post.id)" class="btn btn-primary">Not Solved</button>
+            </div>
+          </div>
+        </div>
+        <ul v-if="showComments" class='list-group'>
+          <div class="card-body">
+            <h5 class="card-title"> (( post.topic )): (( post.title ))</h5>
+            <p class="card-text">(( post.content ))</p>
+          </div>
+          <li v-for="comment in post.comments" class='list-group-item'>
+            <div class="card">
+              <div class="card-header">
+                (( comment.user.username )) wrote on (( comment.date )):
+              </div>
+              <div class="card-body">
+                <p class="card-text">(( comment.content ))</p>
+              </div>
+            </div>
+          </li>
+          <comment-form v-bind:post_id="post.id"></comment-form>
+        </ul>
+      </div>
+    </div>
+  </header>
+</li> -->
