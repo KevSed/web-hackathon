@@ -41,9 +41,7 @@ def add_post():
 @app.route('/comments', methods=['POST'])
 def add_comment():
     user, created = User.get_or_create(username=request.form['user'])
-    content = request.form['content']
-    post = request.form['post']
-    Comment.create(user=user, content=content, post=post)
+    Comment.create(user=user, content=request.form['content'], post=request.form['post'])
     return jsonify(status='success')
 
 # socket.on('update', app.getToDos)

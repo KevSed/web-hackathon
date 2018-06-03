@@ -24,7 +24,6 @@ class Post(MyModel):
     topic = TextField('Python')
     user = ForeignKeyField(User, related_name='post')
     solved = BooleanField(default=False)
-    show = BooleanField(default=False)
     date = DateTimeField(default=datetime.utcnow)
 
 class Comment(MyModel):

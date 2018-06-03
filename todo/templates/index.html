@@ -65,9 +65,32 @@
       </div>
     </form>
     <main>
-      <h2>Current Posts</h2>
+      <header class='container'>
+        <h2>Current Posts</h2>
+      </header>
+      <header class='container'>
+        <h3>Python</h3>
+      </header>
       <ul class='list-group'>
-        <post v-for="post in posts" v-bind:post="post" v-bind:key="post.id"></post>
+        <post v-for="post in posts" v-if='post.topic=="Python"' v-bind:post="post" v-bind:key="post.id"></post>
+      </ul>
+      <header class='container'>
+        <h3>C++</h3>
+      </header>
+      <ul class='list-group'>
+        <post v-for="post in posts" v-if='post.topic=="C++"' v-bind:post="post" v-bind:key="post.id"></post>
+      </ul>
+      <header class='container'>
+        <h3>LaTeX</h3>
+      </header>
+      <ul class='list-group'>
+        <post v-for="post in posts" v-if='post.topic=="LaTeX"' v-bind:post="post" v-bind:key="post.id"></post>
+      </ul>
+      <header class='container'>
+        <h3>General</h3>
+      </header>
+      <ul class='list-group'>
+        <post v-for="post in posts" v-if='post.topic=="General"' v-bind:post="post" v-bind:key="post.id"></post>
       </ul>
 
 

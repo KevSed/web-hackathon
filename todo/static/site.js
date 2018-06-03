@@ -14,51 +14,60 @@ function errorMessage(msg) {
 
 Vue.component('comment-form', {
   delimiters: ['((', '))'],
-  props: ['post_id'],
+  props: ['post'],
   data: function() {
     return {
       newcontent: '',
-      newuser: ''
+      newuser: '',
     };
   },
   template: `
     <form v-on:submit.prevent="addComment" class="form-inline">
-    <input v-model="newuser" class='form-control' type="text" placeholder="Username" />
-    <input v-model="newcontent" class='form-control' type="text" placeholder="content" />
-      <button class="btn btn-primary" v-on:click="addComment()">Add comment</button>
+      <div class='row'>
+        <div class='col'>
+          <input v-model="newuser" class='form-control' type="text" placeholder="Username" />
+        </div>
+        <div class='col'>
+          <input v-model="newcontent" class='form-control' type="text" placeholder="content" />
+        </div>
+        <div class='col'>
+          <input type='submit' class="btn btn-primary" value='Comment' />
+        </div>
+      </div>
     </form>
     `,
-    methods:{
-
-      addComment: function() {
-        console.log('trying to comment ' + this.newcontent);
-        console.log('trying to comment ' + this.post_id);
-        $.ajax("/comments", {
-          method: "POST",
-          data: {
-            user: this.newuser,
-            content: this.newcontent,
-            post: this.post_id
-          },
-          success: () => {
-            console.log("Added comment");
-            this.newuser = '';
-            this.newcontent = '';
-            this.getPost();
-          },
-          error: (response) => {
-              console.log(response);
-          }
-        })
-      },
-}
+    // <button class="btn btn-primary" v-on:click="addComment">Add comment</button>
+  methods: {
+    addComment: function() {
+      console.log('trying to comment ' + this.newcontent);
+      console.log('trying to comment ' + this.$props.id);
+      $.ajax("/comments", {
+        method: "POST",
+        data: {
+          user: this.newuser,
+          content: this.newcontent,
+          post: this.$props.id
+        },
+        success: () => {
+          console.log("Added comment");
+          this.newuser = '';
+          this.newcontent = '';
+        },
+        error: (response) => {
+          console.log(response);
+        }
+      })
+    },
+  }
 })
 
 Vue.component('post', {
   delimiters: ['((', '))'],
   props: ['post'],
   data: function() {
-    return {showComments: false}
+    return {
+      showComments: false
+    }
   },
   template: `
   <li class='list-group-item'>
@@ -76,9 +85,19 @@ Vue.component('post', {
         (( post.topic ))
       </div>
       <div class="col">
-        <button v-on:click="showComments = !showComments" class="btn btn-primary">More</button>
+        <button v-on:click="showComments = !showComments" class="btn btn-primary">View</button>
       </div>
       <ul v-if="showComments" class='list-group'>
+
+      <div class="card">
+        <div class="card-header">
+          (( post.username )) wrote on (( post.date )):
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"> (( post.topic )): (( post.title ))</h5>
+          <p class="card-text">(( post.content ))</p>
+        </div>
+      </div>
         <li v-for="comment in post.comments" class='list-group-item'>
           <div class="row">
             <div class='col'>
@@ -89,11 +108,8 @@ Vue.component('post', {
             </div>
           </div>
         </li>
-        <comment-form v-bind:post_id='post.id'></comment-form>
+        <comment-form v-bind="post"></comment-form>
       </ul>
-      <div class="col">
-        <button v-on:click="" class="btn btn-success">Show</button>
-      </div>
     </div class="row">
   </li>
     `
@@ -108,7 +124,6 @@ var app = new Vue({
     newtitle: '',
     newcontent: '',
     newtopic: '',
-    newpost: '',
   },
   methods: {
 
@@ -121,16 +136,16 @@ var app = new Vue({
       console.log("Got new posts");
     },
 
-    toggleComments: function(post_id) {
-      console.log("Show comments ");
-    $.ajax("/posts/" + post_id, {
-        method: "PUT",
-        success: () => {
-            console.log("Toggled Comment " + post_id);
-            this.getPost();
-            },
-        })
-    },
+    // toggleComments: function(post_id) {
+    //   console.log("Show comments ");
+    //   $.ajax("/comments" + post_id, {
+    //     method: "PUT",
+    //     success: () => {
+    //       console.log("Toggled Comment " + post_id);
+    //       this.getPost();
+    //     },
+    //   })
+    // },
 
     addPost: function() {
       console.log('trying to add ' + this.newcontent);
@@ -151,7 +166,7 @@ var app = new Vue({
           this.getPost();
         },
         error: (response) => {
-            console.log("Error");
+          console.log("Error while making Post");
         }
       })
     },
