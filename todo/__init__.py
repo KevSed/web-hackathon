@@ -38,19 +38,13 @@ def add_post():
     Post.create(user=user, title=title, content=content, topic=topic)
     return jsonify(status='success')
 
-@app.route('/posts/<int:id>', methods=['PUT'])
-def toggle_comments(id):
-    post = Post.get(id=id)
-    post.show = not todo.show
-    post.save()
-    return jsonify(status='success')
-
-@app.route('/posts/<int:id>', methods=['POST'])
+@app.route('/comments', methods=['POST'])
 def add_comment():
     user, created = User.get_or_create(username=request.form['user'])
     content = request.form['content']
-    post = 3
+    post = request.form['post']
     Comment.create(user=user, content=content, post=post)
     return jsonify(status='success')
 
 # socket.on('update', app.getToDos)
+# 9.30

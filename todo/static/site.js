@@ -14,10 +14,44 @@ function errorMessage(msg) {
 
 Vue.component('comment-form', {
   delimiters: ['((', '))'],
+  props: ['post_id'],
+  data: function() {
+    return {
+      newcontent: '',
+      newuser: ''
+    };
+  },
   template: `
-    <input v-model="" class='form-control' type="text" />
-    <button class="btn btn-primary" v-on:click="addComment()">Add comment</button>
-    `
+    <form v-on:submit.prevent="addComment" class="form-inline">
+    <input v-model="newuser" class='form-control' type="text" placeholder="Username" />
+    <input v-model="newcontent" class='form-control' type="text" placeholder="content" />
+      <button class="btn btn-primary" v-on:click="addComment()">Add comment</button>
+    </form>
+    `,
+    methods:{
+
+      addComment: function() {
+        console.log('trying to comment ' + this.newcontent);
+        console.log('trying to comment ' + this.post_id);
+        $.ajax("/comments", {
+          method: "POST",
+          data: {
+            user: this.newuser,
+            content: this.newcontent,
+            post: this.post_id
+          },
+          success: () => {
+            console.log("Added comment");
+            this.newuser = '';
+            this.newcontent = '';
+            this.getPost();
+          },
+          error: (response) => {
+              console.log(response);
+          }
+        })
+      },
+}
 })
 
 Vue.component('post', {
@@ -55,7 +89,7 @@ Vue.component('post', {
             </div>
           </div>
         </li>
-        <comment-form></comment-form>
+        <comment-form v-bind:post_id='post.id'></comment-form>
       </ul>
       <div class="col">
         <button v-on:click="" class="btn btn-success">Show</button>
@@ -122,27 +156,6 @@ var app = new Vue({
       })
     },
 
-    addComment: function(p) {
-      console.log('trying to comment ' + this.newcontent);
-      $.ajax("/posts", {
-        method: "POST",
-        data: {
-          user: this.newuser,
-          content: this.newcontent,
-          post: this.newpost
-        },
-        success: () => {
-          console.log("Added comment");
-          this.newuser = '';
-          this.newcontent = '';
-          this.newpost = '';
-          this.getPost();
-        },
-        error: (response) => {
-            console.log("Error");
-        }
-      })
-    },
 
   }
 })
