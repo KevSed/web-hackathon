@@ -48,18 +48,7 @@
           </select>
           </div>
         </div>
-        <!-- <div class="dropdown">
-          <button class="btn btn-primary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Topic
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <button v-model="newtopic=Python" class="dropdown-item" href="#">Python</a>
-          <button v-on:click="toggleDone(todo.id)" class="dropdown-item">Not Done</button>
-            <a class="dropdown-item" href="#">LaTeX</a>
-            <a class="dropdown-item" href="#">C++</a>
-          </div>
-        </div> -->
-        <div class='col'>
+       <div class='col'>
           <input type='submit' class="btn btn-primary btn-lg" value='Add' />
         </div>
       </div>
@@ -99,56 +88,3 @@
 </body>
 
 </html>
-
-
-
-
-
-<!-- <li class='list-group-item'>
-  <header class='container'>
-    <div class="row">
-
-      <div class="card" style="width: 80rem;">
-        <div class="card-header">
-          <div class='row'>
-            <div class='col'>
-              (( post.title ))
-            </div>
-            <div class='col'>
-              (( post.username ))
-            </div>
-            <div class='col'>
-              (( post.date ))
-            </div>
-
-            <div class="col">
-              <button v-on:click="showComments = !showComments" class="btn btn-primary btn-lg">View</button>
-            </div>
-
-            <div class="col">
-              <button v-if="post.solved" v-on:click="toggleSolved(post.id)" class="btn btn-success">Solved</button>
-              <button v-else v-on:click="toggleSolved(post.id)" class="btn btn-primary">Not Solved</button>
-            </div>
-          </div>
-        </div>
-        <ul v-if="showComments" class='list-group'>
-          <div class="card-body">
-            <h5 class="card-title"> (( post.topic )): (( post.title ))</h5>
-            <p class="card-text">(( post.content ))</p>
-          </div>
-          <li v-for="comment in post.comments" class='list-group-item'>
-            <div class="card">
-              <div class="card-header">
-                (( comment.user.username )) wrote on (( comment.date )):
-              </div>
-              <div class="card-body">
-                <p class="card-text">(( comment.content ))</p>
-              </div>
-            </div>
-          </li>
-          <comment-form v-bind:post_id="post.id"></comment-form>
-        </ul>
-      </div>
-    </div>
-  </header>
-</li> -->
