@@ -1,4 +1,4 @@
-# web-hackathon-tutorial
+# web-hackathon
 
 Build a stackoverflow for poor people application using flask / bootstrap / vue
 Build a To-Do-List application using flask / bootstrap / vue
